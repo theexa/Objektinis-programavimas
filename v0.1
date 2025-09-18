@@ -1,0 +1,153 @@
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <string>
+#include <random>
+#include <ctime>
+#include <limits>
+#include <fstream>
+#include <sstream>
+
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
+using std::vector;
+using std::setw;
+using std::left;
+using std::sort;
+
+struct Studentas {
+    string var;
+    string pav;
+    vector<int> paz;
+    int egz;
+    double gal;
+    double med;
+};
+
+//Studentas Stud_iv();
+void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe);
+
+int main() {
+    string fpav;
+    vector<Studentas> Grupe;
+
+    SkaitytiIsFailo("studentai10000.txt", Grupe);
+    
+    std::sort(Grupe.begin(), Grupe.end(), [](const Studentas& a, const Studentas& b) {
+        if (a.pav == b.pav)
+            return a.var < b.var;
+        return a.pav < b.pav;
+    });
+    
+    cout << "Studento informacija: " << endl;
+    cout << setw(15) << left << "Pavarde" << setw(15) << "Vardas"
+    << setw(20) << "Galutinis  (Vid.)"
+    << setw(20) << "Galutinis (Med.)" << endl;
+    for (auto Past : Grupe) {
+        cout << setw(15) << left << Past.var
+        << setw(15) << Past.pav
+        << setw(20) << Past.gal
+        << setw(20) << std::setprecision(2) << Past.med << endl;
+    }
+}
+
+void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe) {
+    std::ifstream fd(failoVardas);
+    if (!fd.is_open()) {
+        cout << "Nepavyko atidaryti failo!" << endl;
+        return;
+    }
+
+    string eilute;
+    getline(fd, eilute);
+
+    while (getline(fd, eilute)) {
+        std::istringstream iss(eilute);
+        Studentas st;
+        iss >> st.pav >> st.var;
+
+        int paz;
+        int sum = 0;
+        while (iss >> paz) {
+            st.paz.push_back(paz);
+        }
+
+        st.egz = st.paz.back();
+        st.paz.pop_back();
+
+        for (int x : st.paz) sum += x;
+        if (!st.paz.empty())
+            st.gal = (double)sum / st.paz.size() * 0.4 + st.egz * 0.6;
+        else
+            st.gal = st.egz * 0.6;
+
+        st.paz.push_back(st.egz);
+        sort(st.paz.begin(), st.paz.end());
+        if (st.paz.size() % 2 != 0) {
+            st.med = st.paz[st.paz.size() / 2];
+        }
+        else {
+            st.med = (st.paz[st.paz.size() / 2] + st.paz[st.paz.size() / 2 - 1]) / 2.0;
+        }
+
+        Grupe.push_back(st);
+    }
+    fd.close();
+}
+
+//Studentas Stud_iv() {
+//    int laik_paz, sum = 0;
+//    string line;
+//    Studentas Pirmas;
+//    cout << "Įveskite studento duomenis" << endl;
+//    cout << "Vardas: "; cin >> Pirmas.var;
+//    cout << "Pavardė: "; cin >> Pirmas.pav;
+//    int pasirinkimas;
+//    cout << "Ar norite pažymius įvesti (1), ar generuoti atsitiktinai (2)? ";
+//    cin >> pasirinkimas;
+//    if (pasirinkimas == 1) {
+//        cout << "Įveskite namų darbų pažymius (baigti - tiesiog ENTER):" << endl;
+//        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//        while (true) {
+//            std::getline(cin, line);
+//            if (line.empty()) break;
+//            laik_paz = std::stoi(line);
+//            Pirmas.paz.push_back(laik_paz);
+//            sum += laik_paz;
+//        }
+//    }
+//    else {
+//        cout << "Įveskite studento duomenis" << endl;
+//        cout << "Vardas: "; cin >> Pirmas.var;
+//        cout << "Pavardė: "; cin >> Pirmas.pav;
+//        static std::mt19937 rng(time(0));
+//        std::uniform_int_distribution<int> paz_kiek(1, 10);
+//        std::uniform_int_distribution<int> balas(1, 10);
+//        int a = paz_kiek(rng);
+//        cout << "Sugeneruoti " << a << " namų darbų pažymiai: ";
+//        for (int i = 0; i < a; i++) {
+//            int laik_paz = balas(rng);
+//            cout << laik_paz << " ";
+//            Pirmas.paz.push_back(laik_paz);
+//            sum += laik_paz;
+//        }
+//        cout << endl;
+//    }
+//    cout << "Įveskite egzamino pažymį: ";
+//    cin >> Pirmas.egz;
+//    if (!Pirmas.paz.empty())
+//        Pirmas.gal = (double)sum / Pirmas.paz.size() * 0.4 + Pirmas.egz * 0.6;
+//    else
+//        Pirmas.gal = Pirmas.egz * 0.6;
+//    Pirmas.paz.push_back(Pirmas.egz);
+//    sort(Pirmas.paz.begin(), Pirmas.paz.end());
+//    if (Pirmas.paz.size() % 2 != 0) {
+//        Pirmas.med = Pirmas.paz[Pirmas.paz.size() / 2];
+//    }
+//    else {
+//        Pirmas.med = (Pirmas.paz[Pirmas.paz.size() / 2] + Pirmas.paz[Pirmas.paz.size() / 2 - 1]) / 2.0;
+//    }
+//    return Pirmas;
+//}
