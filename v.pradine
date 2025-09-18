@@ -2,6 +2,9 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <random>
+#include <ctime>
+#include <limits>
 
 using std::cout;
 using std::cin;
@@ -58,7 +61,6 @@ int main(){
             cout << setw(17) << Past.gal << "|" << setw(20) << std::setprecision(2) << Past.med << endl;
         }
     }
-return 0;
 }
 
 Studentas Stud_iv(){
@@ -68,16 +70,29 @@ Studentas Stud_iv(){
     cout << "Įveskite studento duomenis" << endl;
     cout << "Vardas: "; cin >> Pirmas.var;
     cout << "Pavardė: "; cin >> Pirmas.pav;
-    cout << "Įveskite namų darbų pažymius (baigti - tiesiog ENTER):" << endl;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    while (true) {
-            std::getline(cin, line);
-            if (line.empty()) break;   // ENTER without number → end input
+//    cout << "Įveskite namų darbų pažymius (baigti - tiesiog ENTER):" << endl;
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//    while (true) {
+//            std::getline(cin, line);
+//            if (line.empty()) break;   // ENTER without number → end input
+//
+//            laik_paz = std::stoi(line); // convert string → int
+//            Pirmas.paz.push_back(laik_paz);
+//            sum += laik_paz;
+//        }
+    static std::mt19937 rng(time(0)); // PRNG generatorius
+            std::uniform_int_distribution<int> paz_kiek(1, 10); // kiek pazymių
+            std::uniform_int_distribution<int> balas(1, 10);    // pažymiai 1–10
 
-            laik_paz = std::stoi(line); // convert string → int
-            Pirmas.paz.push_back(laik_paz);
-            sum += laik_paz;
-        }
+            int a = paz_kiek(rng);
+            cout << "Sugeneruoti " << a << " namų darbų pažymiai: ";
+            for (int i = 0; i < a; i++) {
+                int laik_paz = balas(rng);
+                cout << laik_paz << " ";
+                Pirmas.paz.push_back(laik_paz);
+                sum += laik_paz;
+            }
+            cout << endl;
     cout << "Įveskite egzamino pažymį: "; cin >> Pirmas.egz;
     Pirmas.gal = double(sum)/double(n) * 0.4 + Pirmas.egz * 0.6;
     Pirmas.paz.push_back(Pirmas.egz);
