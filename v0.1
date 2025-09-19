@@ -28,12 +28,13 @@ struct Studentas {
 
 //Studentas Stud_iv();
 void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe);
+void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe);
 
 int main() {
     string fpav;
     vector<Studentas> Grupe;
 
-    SkaitytiIsFailo("studentai10000.txt", Grupe);
+    SkaitytiIsFailo("studentai1000000.txt", Grupe);
     
     std::sort(Grupe.begin(), Grupe.end(), [](const Studentas& a, const Studentas& b) {
         if (a.pav == b.pav)
@@ -41,16 +42,9 @@ int main() {
         return a.pav < b.pav;
     });
     
-    cout << "Studento informacija: " << endl;
-    cout << setw(15) << left << "Pavarde" << setw(15) << "Vardas"
-    << setw(20) << "Galutinis  (Vid.)"
-    << setw(20) << "Galutinis (Med.)" << endl;
-    for (auto Past : Grupe) {
-        cout << setw(15) << left << Past.var
-        << setw(15) << Past.pav
-        << setw(20) << Past.gal
-        << setw(20) << std::setprecision(2) << Past.med << endl;
-    }
+    IrasytiIFaila("Rezultatai1000000.txt", Grupe);
+    return 0;
+    
 }
 
 void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe) {
@@ -97,3 +91,17 @@ void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe) {
     fd.close();
 }
 
+void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe){
+    std::ofstream fr(failoVardas);
+    fr << "Studento informacija: " << endl;
+    fr << setw(15) << left << "Pavarde" << setw(15) << "Vardas"
+    << setw(20) << "Galutinis  (Vid.)"
+    << setw(20) << "Galutinis (Med.)" << endl;
+    for (auto Past : Grupe) {
+        fr << setw(15) << left << Past.var
+        << setw(15) << Past.pav
+        << setw(20) << Past.gal
+        << setw(20) << std::setprecision(2) << Past.med << endl;
+    }
+    fr.close();
+}
