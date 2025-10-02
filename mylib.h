@@ -23,5 +23,6 @@ using std::sort;
 using std::right;
 
 void SkaitytiIsFailo(const string& , vector<Studentas>& );
-void IrasytiIFaila(const string& , vector<Studentas>& ,string );
+void SkaidytiStudentus(const vector<Studentas>&, vector<Studentas>& , vector<Studentas>& );
+void IrasytiIFaila(const string& , vector<Studentas>&);
 void StudentuSarG();
