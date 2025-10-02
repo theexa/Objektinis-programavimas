@@ -32,22 +32,21 @@ struct Studentas {
 
 //Studentas Stud_iv();
 void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe);
-void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe);
+void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe,string gr);
 void StudentuSarG();
 
 int main() {
     string fpav;
     vector<Studentas> Grupe;
     int s;
-    
     cout << "Ar norite sukurti atsitiktinius studentu sąrašus? Taip - (1), Ne - (2): ";
     cin >> s;
-    
     if(s==1){
         StudentuSarG();
     }
-
-    SkaitytiIsFailo("stud1000.txt", Grupe);
+    cout << "Iveskite failo pavadinima: ";
+    cin >> fpav;
+    SkaitytiIsFailo(fpav, Grupe);
     
     std::sort(Grupe.begin(), Grupe.end(), [](const Studentas& a, const Studentas& b) {
         if (a.pav == b.pav)
@@ -55,7 +54,8 @@ int main() {
         return a.pav < b.pav;
     });
     
-    IrasytiIFaila("Rezultatai1000.txt", Grupe);
+    IrasytiIFaila("Rezultatai1000A.txt", Grupe, "nuskriaustukai");
+    IrasytiIFaila("Rezultatai1000B.txt", Grupe, "kietuoliai");
     return 0;
     
 }
@@ -110,17 +110,19 @@ void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe) {
     fd.close();
 }
 
-void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe){
+void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe, string gr){
     std::ofstream fr(failoVardas);
     fr << "Studento informacija: " << endl;
     fr << setw(15) << left << "Pavarde" << setw(15) << "Vardas"
     << setw(20) << "Galutinis  (Vid.)"
     << setw(20) << "Galutinis (Med.)" << endl;
     for (auto Past : Grupe) {
-        fr << setw(15) << left << Past.var
-        << setw(15) << Past.pav
-        << setw(20) << Past.gal
-        << setw(20) << std::setprecision(2) << Past.med << setw(20) << Past.gr << endl;
+        if (Past.gr == gr){
+            fr << setw(15) << left << Past.var
+            << setw(15) << Past.pav
+            << setw(20) << Past.gal
+            << setw(20) << std::setprecision(2) << Past.med << setw(20) << Past.gr << endl;
+        }
     }
     fr.close();
 }
