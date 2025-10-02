@@ -1,5 +1,17 @@
 #include "mylib.h"
 
+void MatuotiLaika(const string& operacijosPavadinimas, std::function<void()> operacija) {
+    auto start = std::chrono::high_resolution_clock::now();
+    
+    operacija();
+    
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    
+    cout << operacijosPavadinimas << " uztruko: " << duration.count() << " s" << endl;
+}
+
+
 void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe) {
     std::ifstream fd(failoVardas);
     if (!fd.is_open()) {
