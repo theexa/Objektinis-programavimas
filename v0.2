@@ -19,8 +19,13 @@ int main() {
         return a.pav < b.pav;
     });
     
-    IrasytiIFaila("Rezultatai1000A.txt", Grupe, "nuskriaustukai");
-    IrasytiIFaila("Rezultatai1000B.txt", Grupe, "kietuoliai");
+    vector<Studentas> Nuskriaustukai;
+    vector<Studentas> Kietuoliai;
+    SkaidytiStudentus(Grupe, Nuskriaustukai, Kietuoliai);
+
+    IrasytiIFaila("Rezultatai1000A.txt", Nuskriaustukai);
+    IrasytiIFaila("Rezultatai1000B.txt", Kietuoliai);
+
     return 0;
     
 }
