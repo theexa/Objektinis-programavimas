@@ -27,6 +27,7 @@ struct Studentas {
     int egz;
     double gal;
     double med;
+    string gr;
 };
 
 //Studentas Stud_iv();
@@ -46,7 +47,7 @@ int main() {
         StudentuSarG();
     }
 
-    SkaitytiIsFailo("studentai10000.txt", Grupe);
+    SkaitytiIsFailo("stud1000.txt", Grupe);
     
     std::sort(Grupe.begin(), Grupe.end(), [](const Studentas& a, const Studentas& b) {
         if (a.pav == b.pav)
@@ -54,7 +55,7 @@ int main() {
         return a.pav < b.pav;
     });
     
-    IrasytiIFaila("Rezultatai10000.txt", Grupe);
+    IrasytiIFaila("Rezultatai1000.txt", Grupe);
     return 0;
     
 }
@@ -97,6 +98,12 @@ void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe) {
         else {
             st.med = (st.paz[st.paz.size() / 2] + st.paz[st.paz.size() / 2 - 1]) / 2.0;
         }
+        if(st.gal < 5){
+            st.gr = "nuskriaustukai";
+        }
+        else if (st.gal >= 5){
+            st.gr = "kietuoliai";
+        }
 
         Grupe.push_back(st);
     }
@@ -113,7 +120,7 @@ void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe){
         fr << setw(15) << left << Past.var
         << setw(15) << Past.pav
         << setw(20) << Past.gal
-        << setw(20) << std::setprecision(2) << Past.med << endl;
+        << setw(20) << std::setprecision(2) << Past.med << setw(20) << Past.gr << endl;
     }
     fr.close();
 }
