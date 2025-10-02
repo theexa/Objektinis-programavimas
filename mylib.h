@@ -10,6 +10,9 @@
 #include <sstream>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
+#include <chrono>
+#include <functional>
 #include "stud.h"
 
 using std::cout;
@@ -21,8 +24,10 @@ using std::setw;
 using std::left;
 using std::sort;
 using std::right;
+using std::function;
 
 void SkaitytiIsFailo(const string& , vector<Studentas>& );
 void SkaidytiStudentus(const vector<Studentas>&, vector<Studentas>& , vector<Studentas>& );
 void IrasytiIFaila(const string& , vector<Studentas>&);
 void StudentuSarG();
+void MatuotiLaika(const string&, function<void()>);
