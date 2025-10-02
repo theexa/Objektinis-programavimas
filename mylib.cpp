@@ -50,19 +50,27 @@ void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe) {
     fd.close();
 }
 
-void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe, string gr){
+void SkaidytiStudentus(const vector<Studentas>& Grupe, vector<Studentas>& Nuskriaustukai, vector<Studentas>& Kietuoliai) {
+    for (const auto& studentas : Grupe) {
+        if (studentas.gr == "nuskriaustukai") {
+            Nuskriaustukai.push_back(studentas);
+        } else if (studentas.gr == "kietuoliai") {
+            Kietuoliai.push_back(studentas);
+        }
+    }
+}
+
+void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe){
     std::ofstream fr(failoVardas);
     fr << "Studento informacija: " << endl;
     fr << setw(15) << left << "Pavarde" << setw(15) << "Vardas"
     << setw(20) << "Galutinis  (Vid.)"
     << setw(20) << "Galutinis (Med.)" << endl;
     for (auto Past : Grupe) {
-        if (Past.gr == gr){
-            fr << setw(15) << left << Past.var
-            << setw(15) << Past.pav
-            << setw(20) << Past.gal
-            << setw(20) << std::setprecision(2) << Past.med << setw(20) << Past.gr << endl;
-        }
+        fr << setw(15) << left << Past.var
+        << setw(15) << Past.pav
+        << setw(20) << Past.gal
+        << setw(20) << std::setprecision(2) << Past.med << setw(20) << Past.gr << endl;
     }
     fr.close();
 }
