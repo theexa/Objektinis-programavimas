@@ -3,15 +3,19 @@
 int main() {
     string fpav;
     vector<Studentas> Grupe;
+    vector<Studentas> Nuskriaustukai;
+    vector<Studentas> Kietuoliai;
     int s;
     cout << "Ar norite sukurti atsitiktinius studentu sąrašus? Taip - (1), Ne - (2): ";
     cin >> s;
-    if(s==1){
-        StudentuSarG();
+    if(s == 1){
+        MatuotiLaika("Studentu saraso generavimas", StudentuSarG);
     }
     cout << "Iveskite failo pavadinima: ";
     cin >> fpav;
-    SkaitytiIsFailo(fpav, Grupe);
+    MatuotiLaika("Failo skaitymas", [&]() {
+        SkaitytiIsFailo(fpav, Grupe);
+    });
     
     std::sort(Grupe.begin(), Grupe.end(), [](const Studentas& a, const Studentas& b) {
         if (a.pav == b.pav)
@@ -19,13 +23,17 @@ int main() {
         return a.pav < b.pav;
     });
     
-    vector<Studentas> Nuskriaustukai;
-    vector<Studentas> Kietuoliai;
-    SkaidytiStudentus(Grupe, Nuskriaustukai, Kietuoliai);
-
-    IrasytiIFaila("Rezultatai1000A.txt", Nuskriaustukai);
-    IrasytiIFaila("Rezultatai1000B.txt", Kietuoliai);
+    MatuotiLaika("Studentu skaidymas i grupes", [&]() {
+        SkaidytiStudentus(Grupe, Nuskriaustukai, Kietuoliai);
+    });
+    
+    MatuotiLaika("Nuskriaustuku irasymas i faila", [&]() {
+        IrasytiIFaila("Rezultatai10000000A.txt", Nuskriaustukai);
+    });
+    
+    MatuotiLaika("Kietuoliu irasymas i faila", [&]() {
+        IrasytiIFaila("Rezultatai10000000B.txt", Kietuoliai);
+    });
 
     return 0;
-    
 }
