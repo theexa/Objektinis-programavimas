@@ -31,8 +31,7 @@ void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe);
 void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe, int a);
 
 int main() {
-    int m;
-    int a;
+    int m, a, b;
     string fpav;
     vector<Studentas> Grupe;
     
@@ -49,6 +48,11 @@ int main() {
         cin >> fpav;
         SkaitytiIsFailo("/Users/theexa/Desktop/Objektinis-Programavimas/v0_1/Rezultatai100000.txt", Grupe);
     }
+    cout << "Vidurkis(1) ar Mediana(2), Abu(3)?: ";
+    cin >> b;
+    
+    IrasytiIFaila("Rezultatai1000000.txt", Grupe, b);
+    return 0;
 }
 
 
@@ -94,25 +98,45 @@ void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe) {
         Grupe.push_back(st);
     }
     fd.close();
-    
-    cout << "Vidurkis(1) ar Mediana(2), Abu(3)?: ";
-    cin >> a;
-    
-    IrasytiIFaila("Rezultatai1000000.txt", Grupe, a);
-    return 0;
 }
 
 void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe, int a){
     std::ofstream fr(failoVardas);
-    fr << "Studento informacija: " << endl;
-    fr << setw(15) << left << "Pavarde" << setw(15) << "Vardas"
-    << setw(20) << "Galutinis  (Vid.)"
-    << setw(20) << "Galutinis (Med.)" << endl;
-    for (auto Past : Grupe) {
-        fr << setw(15) << left << Past.var
-        << setw(15) << Past.pav
-        << setw(20) << Past.gal
-        << setw(20) << std::setprecision(2) << Past.med << endl;
+    if (a == 1) {
+            fr << "Studento informacija: " << endl;
+            fr << setw(15) << left << "Vardas" << "|"
+                 << setw(15) << "Pavarde" << "|"
+                 << setw(17) << "Galutinis  (Vid.)" << endl;
+            for (auto Past : Grupe) {
+                fr << setw(15) << left << Past.var << "|"
+                     << setw(15) << Past.pav << "|"
+                     << setw(17) << Past.gal << endl;
+            }
+        }
+        else if (a == 2) {
+            fr << "Studento informacija: " << endl;
+            fr << setw(15) << left << "Vardas" << "|"
+                 << setw(15) << "Pavarde" << "|"
+                 << setw(17) << "Galutinis  (Med.)" << endl;
+            for (auto Past : Grupe) {
+                fr << setw(15) << left << Past.var << "|"
+                     << setw(15) << Past.pav << "|"
+                     << setw(17) << std::setprecision(2) << Past.med << endl;
+            }
+        }
+        else if (a == 3) {
+            fr << "Studento informacija: " << endl;
+            fr << setw(15) << left << "Vardas" << "|"
+                 << setw(15) << "Pavarde" << "|"
+                 << setw(17) << "Galutinis  (Vid.)"
+                 << setw(20) << "/ Galutinis (Med.)" << endl;
+            for (auto Past : Grupe) {
+                fr << setw(15) << left << Past.var << "|"
+                     << setw(15) << Past.pav << "|"
+                     << setw(17) << Past.gal << "|"
+                     << setw(20) << std::setprecision(2) << Past.med << endl;
+            }
+        }
     }
     fr.close();
 }
