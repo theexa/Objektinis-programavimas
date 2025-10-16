@@ -49,14 +49,19 @@ int main() {
             Grupe.push_back(Stud_iv(z));
     }
     else if (a == 2) {
-        cout <<"Iveksite failo pavadinima: ";
-        cin >> fpav;
-        SkaitytiIsFailo("/Users/theexa/Desktop/Objektinis-Programavimas/v0_1/Rezultatai100000.txt", Grupe);
+        SkaitytiIsFailo("/Users/theexa/Desktop/Objektinis-Programavimas/v0_1/studentai100000.txt", Grupe);
     }
     cout << "Vidurkis(1) ar Mediana(2), Abu(3)?: ";
     cin >> b;
     
+    std::sort(Grupe.begin(), Grupe.end(), [](const Studentas& a, const Studentas& b) {
+        if (a.pav == b.pav)
+            return a.var < b.var;
+        return a.pav < b.pav;
+    });
+    
     IrasytiIFaila("/Users/theexa/Desktop/Objektinis-Programavimas/v0_1/Rezultatai1000000.txt", Grupe, b);
+    cout << "Rezultatai surašyti į failą" << endl;
     return 0;
 }
 void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe) {
