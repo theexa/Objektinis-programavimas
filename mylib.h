@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 #include <random>
-#include <ctime>
 #include <limits>
 #include <fstream>
 #include <sstream>
@@ -25,9 +24,11 @@ using std::left;
 using std::sort;
 using std::right;
 using std::function;
+using std::sort;
 
 void SkaitytiIsFailo(const string& , vector<Studentas>& );
 void SkaidytiStudentus(const vector<Studentas>&, vector<Studentas>& , vector<Studentas>& );
 void IrasytiIFaila(const string& , vector<Studentas>&);
-void StudentuSarG();
+void StudentuSarG(int, int);
 void MatuotiLaika(const string&, function<void()>);
+void RusiuotiStudentus(vector<Studentas>&, int);
