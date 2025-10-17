@@ -9,7 +9,14 @@ int main() {
     cout << "Ar norite sukurti atsitiktinius studentu sąrašus? Taip - (1), Ne - (2): ";
     cin >> s;
     if(s == 1){
-        MatuotiLaika("Studentu saraso generavimas", StudentuSarG);
+        int n, m;
+        cout << "Kiek studentu norite? ";
+        cin >> n;
+        cout << "Kiek namu darbu pazymiu? ";
+        cin >> m;
+        MatuotiLaika("Studentu saraso generavimas", [&](){
+            StudentuSarG(n, m);
+        });
     }
     cout << "Iveskite failo pavadinima: ";
     cin >> fpav;
@@ -17,22 +24,38 @@ int main() {
         SkaitytiIsFailo(fpav, Grupe);
     });
     
-    std::sort(Grupe.begin(), Grupe.end(), [](const Studentas& a, const Studentas& b) {
-        if (a.pav == b.pav)
-            return a.var < b.var;
-        return a.pav < b.pav;
+    int rusiavimoPasirinkimas;
+    cout << "Pasirinkite rusiavimo kriterijų:" << endl;;
+    cout << "1 - Pagal pavardę" << endl;
+    cout << "2 - Pagal vardą" << endl;
+    cout << "3 - Pagal galutinį balą (vidurkį)" << endl;
+    cout << "4 - Pagal medianą" << endl;
+    cin >> rusiavimoPasirinkimas;
+    
+    MatuotiLaika("Studentu rusiavimas", [&]() {
+        RusiuotiStudentus(Grupe, rusiavimoPasirinkimas);
     });
     
     MatuotiLaika("Studentu skaidymas i grupes", [&]() {
         SkaidytiStudentus(Grupe, Nuskriaustukai, Kietuoliai);
     });
     
+    if (rusiavimoPasirinkimas > 0) {
+        MatuotiLaika("Nuskriaustuku rusiavimas", [&]() {
+            RusiuotiStudentus(Nuskriaustukai, rusiavimoPasirinkimas);
+        });
+        
+        MatuotiLaika("Kietuoliu rusiavimas", [&]() {
+            RusiuotiStudentus(Kietuoliai, rusiavimoPasirinkimas);
+        });
+    }
+    
     MatuotiLaika("Nuskriaustuku irasymas i faila", [&]() {
-        IrasytiIFaila("Rezultatai10000000A.txt", Nuskriaustukai);
+        IrasytiIFaila("Rezultatai10000A.txt", Nuskriaustukai);
     });
     
     MatuotiLaika("Kietuoliu irasymas i faila", [&]() {
-        IrasytiIFaila("Rezultatai10000000B.txt", Kietuoliai);
+        IrasytiIFaila("Rezultatai10000B.txt", Kietuoliai);
     });
 
     return 0;
