@@ -11,6 +11,40 @@ void MatuotiLaika(const string& operacijosPavadinimas, std::function<void()> ope
     cout << operacijosPavadinimas << " uztruko: " << duration.count() << " s" << endl;
 }
 
+void RusiuotiStudentus(vector<Studentas>& studentai, int kriterijus) {
+    if (kriterijus == 1) {
+        sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+            if (a.pav == b.pav)
+                return a.var < b.var;
+            return a.pav < b.pav;
+        });
+    }
+    else if (kriterijus == 2) {
+        sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+            if (a.var == b.var)
+                return a.pav < b.pav;
+            return a.var < b.var;
+        });
+    }
+    else if (kriterijus == 3) {
+        sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.gal < b.gal;
+        });
+    }
+    else if (kriterijus == 4) {
+            std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+                return a.med < b.med; 
+            });
+        }
+    else {
+        cout << "Nežinomas rūšiavimo kriterijus. Rūšiuojama pagal pavardę." << endl;
+        sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+            if (a.pav == b.pav)
+                return a.var < b.var;
+            return a.pav < b.pav;
+        });
+    }
+}
 
 void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe) {
     std::ifstream fd(failoVardas);
@@ -77,23 +111,20 @@ void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe){
     fr << "Studento informacija: " << endl;
     fr << setw(15) << left << "Pavarde" << setw(15) << "Vardas"
     << setw(20) << "Galutinis  (Vid.)"
-    << setw(20) << "Galutinis (Med.)" << endl;
+    << setw(20) << "Galutinis (Med.)"
+    << setw(15) << "Grupe" << endl;
     for (auto Past : Grupe) {
-        fr << setw(15) << left << Past.var
-        << setw(15) << Past.pav
-        << setw(20) << Past.gal
-        << setw(20) << std::setprecision(2) << Past.med << setw(20) << Past.gr << endl;
+        fr << setw(15) << left << Past.pav
+        << setw(15) << Past.var
+        << setw(20) << std::fixed << std::setprecision(2) << Past.gal
+        << setw(20) << std::fixed << std::setprecision(2) << Past.med
+        << setw(15) << Past.gr << endl;
     }
     fr.close();
 }
 
-void StudentuSarG(){
-    std::ofstream fr("stud10000000.txt");
-    int n, m;
-    cout << "Kiek studentu norite? ";
-    cin >> n;
-    cout << "Kiek namu darbu pazymiu? ";
-    cin >> m;
+void StudentuSarG(int n, int m){
+    std::ofstream fr("stud10000.txt");
     srand(time(0));
     fr << setw(15) << left << "Pavarde" << setw(15) << "Vardas";
     for (int i = 0; i < m; i++){
