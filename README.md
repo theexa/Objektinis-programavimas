@@ -1,6 +1,11 @@
 # Objektinis-programavimas
 
-Tyrimas su vector tipo konteineriu:
+### Testavimo sistemos parametrai
+CPU: Apple M3 <br>
+RAM: 16GB <br>
+HDD: SSD 512GB <br>
+
+#### Tyrimas su vector tipo konteineriu:
 | Failas             | Failo kūrimas | Duomenų nuskaitymas | Studentų rūšiavimas | Duomenų skaidymas | Išvedimas į failus (<5) | Išvedimas į failus >=5) |
 |:-------------------|:--------------|:--------------------|:--------------------|:------------------|:------------------------|:------------------------|
 | stud1000.txt       | 0.00312262 s  | 0.003993 s          | 0.000933 s          | 0.000344 s        | 0.000894 s              | 0.001203 s              |
@@ -9,7 +14,7 @@ Tyrimas su vector tipo konteineriu:
 | stud1000000.txt    | 1.92257800 s  | 4.082662 s          | 0.660367 s          | 0.398755 s        | 0.802523 s              | 1.13977 s               |
 | stud10000000.txt   | 21.7335800 s  | 33.01044 s          | 6.461424 s          | 3.008542 s        | 7.20668 s               | 12.74802 s              |
 
-Tyrimas su list tipo konteineriu:
+#### Tyrimas su list tipo konteineriu:
 | Failas             | Failo kūrimas | Duomenų nuskaitymas | Studentų rūšiavimas | Duomenų skaidymas | Išvedimas į failus (<5) | Išvedimas į failus >=5) |
 |:-------------------|:--------------|:--------------------|:--------------------|:------------------|:------------------------|:------------------------|
 | stud1000.txt       | 0.003295 s    | 0.004071 s          | 0.000232 s          | 0.000333 s        | 0.001034 s              | 0.00119 s               |
