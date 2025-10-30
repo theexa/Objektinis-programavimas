@@ -32,6 +32,7 @@ Testavimo laiko tikslumui, programa duomenis apdorojo penkis kartus, lentelėje 
 | stud10000000.txt   | 21.74144 s    | 39.98160 s          | 6.05281 s           | 3.257018 s        | 7.20628 s               | 12.8282 s               |
 
 ### Rezultatų išvedimo pavyzdys 
-
+<img width="524" height="126" alt="Screenshot 2025-10-30 at 19 15 48" src="https://github.com/user-attachments/assets/82c56d05-7f4d-4ebc-a4ea-948e3aa18886" />
+<br>
 ### Tyrimo rezultatai
 Tiriant konteinerių spartą su skirtingais duomenų kiekiais, rezultatai buvo labai panašūs.
