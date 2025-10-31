@@ -32,12 +32,16 @@ void MatuotiLaika(const string&, function<void()>);
 template<typename Container>
 void VykdytiPrograma(Container& Grupe, Container& Nuskriaustukai, Container& Kietuoliai);
 
+// Vektoriaus funkcijos
 void RusiuotiStudentus(vector<Studentas>&, int);
 void SkaitytiIsFailo(const string&, vector<Studentas>&);
 void SkaidytiStudentus(const vector<Studentas>&, vector<Studentas>&, vector<Studentas>&);
 void IrasytiIFaila(const string&, const vector<Studentas>&);
+void RanksinisIvedimas(vector<Studentas>&);
 
+// Sąrašo funkcijos
 void RusiuotiStudentus(list<Studentas>&, int);
 void SkaitytiIsFailo(const string&, list<Studentas>&);
 void SkaidytiStudentus(const list<Studentas>&, list<Studentas>&, list<Studentas>&);
 void IrasytiIFaila(const string&, const list<Studentas>&);
+void RanksinisIvedimas(list<Studentas>&);
