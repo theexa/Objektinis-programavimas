@@ -1,8 +1,6 @@
 // bendros funkcijos
 #include "mylib.h"
 
-#include "mylib.h"
-
 void MatuotiLaika(const string& operacijosPavadinimas, std::function<void()> operacija) {
     auto start = std::chrono::high_resolution_clock::now();
     
@@ -12,7 +10,7 @@ void MatuotiLaika(const string& operacijosPavadinimas, std::function<void()> ope
     std::chrono::duration<double> duration = end - start;
     
     cout << operacijosPavadinimas << " uztruko: ";
-    cout << duration.count() << " s" << endl;
+    cout << duration.count() << endl; //" s" << endl;
 }
 
 void StudentuSarG(int n, int m){
@@ -47,6 +45,22 @@ void VykdytiPrograma(Container& Grupe, Container& Nuskriaustukai, Container& Kie
         cout << "Kiek namu darbu pazymiu? ";
         cin >> m;
     }
+    
+    int pasirinkimas;
+    cout << "Ar norite ivesti studentus rankiniu budu? Taip - (1), Ne - (2): ";
+    cin >> pasirinkimas;
+    
+    if (pasirinkimas == 1) {
+        int kiek;
+        cout << "Kiek studentu norite ivesti? ";
+        cin >> kiek;
+        for (int i = 0; i < kiek; i++) {
+            cout << "\nIvedamas " << i+1 << " studentas:" << endl;
+            RanksinisIvedimas(Grupe);
+        }
+        return; // Baigiame čia, jei vartotojas įvedė rankiniu būdu
+    }
+    
     cout << "Iveskite failo pavadinima: ";
     cin >> fpav;
     
