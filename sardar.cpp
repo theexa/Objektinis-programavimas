@@ -1,6 +1,57 @@
 // visos saraso funkcijos
 #include "mylib.h"
 
+void RanksinisIvedimas(list<Studentas>& Grupe) {
+    Studentas st;
+    cout << "Iveskite studento pavarde: ";
+    cin >> st.pav;
+    cout << "Iveskite studento varda: ";
+    cin >> st.var;
+    
+    cout << "Iveskite namu darbu pazymius (baigti ivesdami -1): ";
+    int paz;
+    while (cin >> paz && paz != -1) {
+        if (paz >= 0 && paz <= 10) {
+            st.paz.push_back(paz);
+        } else {
+            cout << "Netinkamas pazymys! Iveskite skaiciu nuo 0 iki 10: ";
+        }
+    }
+    
+    cout << "Iveskite egzamino pazymi: ";
+    cin >> st.egz;
+    
+    // Skaičiuojamas galutinis balas
+    int sum = 0;
+    for (int x : st.paz) sum += x;
+    if (!st.paz.empty())
+        st.gal = (double)sum / st.paz.size() * 0.4 + st.egz * 0.6;
+    else
+        st.gal = st.egz * 0.6;
+    
+    // Skaičiuojama mediana
+    vector<int> temp = st.paz;
+    temp.push_back(st.egz);
+    sort(temp.begin(), temp.end());
+    if (temp.size() % 2 != 0) {
+        st.med = temp[temp.size() / 2];
+    } else {
+        st.med = (temp[temp.size() / 2] + temp[temp.size() / 2 - 1]) / 2.0;
+    }
+    
+    if (st.gal < 5) {
+        st.gr = "nuskriaustukai";
+    } else {
+        st.gr = "kietuoliai";
+    }
+    
+    Grupe.push_back(st);
+    
+    // Rodo objekto adresą
+    cout << "Studento objektas saugomas adresu: " << &st << endl;
+    cout << "Studentas sekmingai pridetas i sarasa!" << endl;
+}
+
 void RusiuotiStudentus(list<Studentas>& studentai, int kriterijus) {
     if (kriterijus == 1) { // Pagal pavardę
         studentai.sort([](const Studentas& a, const Studentas& b) {
