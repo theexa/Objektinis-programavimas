@@ -1,3 +1,6 @@
+// bendros funkcijos
+#include "mylib.h"
+
 #include "mylib.h"
 
 void MatuotiLaika(const string& operacijosPavadinimas, std::function<void()> operacija) {
@@ -8,92 +11,12 @@ void MatuotiLaika(const string& operacijosPavadinimas, std::function<void()> ope
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
     
-    cout << operacijosPavadinimas << " uztruko: " << duration.count() << " s" << endl;
+    cout << operacijosPavadinimas << " uztruko: ";
+    cout << duration.count() << " s" << endl;
 }
 
-
-void SkaitytiIsFailo(const string& failoVardas, vector<Studentas>& Grupe) {
-    std::ifstream fd(failoVardas);
-    if (!fd.is_open()) {
-        cout << "Nepavyko atidaryti failo!" << endl;
-        return;
-    }
-
-    string eilute;
-    getline(fd, eilute);
-
-    while (getline(fd, eilute)) {
-        std::istringstream iss(eilute);
-        Studentas st;
-        iss >> st.pav >> st.var;
-
-        int paz;
-        int sum = 0;
-        while (iss >> paz) {
-            st.paz.push_back(paz);
-        }
-
-        st.egz = st.paz.back();
-        st.paz.pop_back();
-
-        for (int x : st.paz) sum += x;
-        if (!st.paz.empty())
-            st.gal = (double)sum / st.paz.size() * 0.4 + st.egz * 0.6;
-        else
-            st.gal = st.egz * 0.6;
-
-        st.paz.push_back(st.egz);
-        sort(st.paz.begin(), st.paz.end());
-        if (st.paz.size() % 2 != 0) {
-            st.med = st.paz[st.paz.size() / 2];
-        }
-        else {
-            st.med = (st.paz[st.paz.size() / 2] + st.paz[st.paz.size() / 2 - 1]) / 2.0;
-        }
-        if(st.gal < 5){
-            st.gr = "nuskriaustukai";
-        }
-        else if (st.gal >= 5){
-            st.gr = "kietuoliai";
-        }
-
-        Grupe.push_back(st);
-    }
-    fd.close();
-}
-
-void SkaidytiStudentus(const vector<Studentas>& Grupe, vector<Studentas>& Nuskriaustukai, vector<Studentas>& Kietuoliai) {
-    for (const auto& studentas : Grupe) {
-        if (studentas.gr == "nuskriaustukai") {
-            Nuskriaustukai.push_back(studentas);
-        } else if (studentas.gr == "kietuoliai") {
-            Kietuoliai.push_back(studentas);
-        }
-    }
-}
-
-void IrasytiIFaila(const string& failoVardas, vector<Studentas>& Grupe){
-    std::ofstream fr(failoVardas);
-    fr << "Studento informacija: " << endl;
-    fr << setw(15) << left << "Pavarde" << setw(15) << "Vardas"
-    << setw(20) << "Galutinis  (Vid.)"
-    << setw(20) << "Galutinis (Med.)" << endl;
-    for (auto Past : Grupe) {
-        fr << setw(15) << left << Past.var
-        << setw(15) << Past.pav
-        << setw(20) << Past.gal
-        << setw(20) << std::setprecision(2) << Past.med << setw(20) << Past.gr << endl;
-    }
-    fr.close();
-}
-
-void StudentuSarG(){
-    std::ofstream fr("stud10000000.txt");
-    int n, m;
-    cout << "Kiek studentu norite? ";
-    cin >> n;
-    cout << "Kiek namu darbu pazymiu? ";
-    cin >> m;
+void StudentuSarG(int n, int m){
+    std::ofstream fr("stud1000.txt");
     srand(time(0));
     fr << setw(15) << left << "Pavarde" << setw(15) << "Vardas";
     for (int i = 0; i < m; i++){
@@ -110,3 +33,61 @@ void StudentuSarG(){
     }
     fr.close();
 }
+
+template<typename Container>
+void VykdytiPrograma(Container& Grupe, Container& Nuskriaustukai, Container& Kietuoliai) {
+    string fpav;
+    int n, m;
+    int s;
+    cout << "Ar norite sukurti atsitiktinius studentu sąrašus? Taip - (1), Ne - (2): ";
+    cin >> s;
+    if(s == 1){
+        cout << "Kiek studentu norite? ";
+        cin >> n;
+        cout << "Kiek namu darbu pazymiu? ";
+        cin >> m;
+    }
+    cout << "Iveskite failo pavadinima: ";
+    cin >> fpav;
+    
+    int rusiavimoPasirinkimas;
+    cout << "\nPasirinkite rusiavimo kriterijų:\n";
+    cout << "1 - Pagal pavardę\n";
+    cout << "2 - Pagal vardą\n";
+    cout << "3 - Pagal galutinį balą (vidurkį)\n";
+    cout << "4 - Pagal medianą\n";
+    cout << "Jūsų pasirinkimas: ";
+    cin >> rusiavimoPasirinkimas;
+    
+    Grupe.clear();
+    Nuskriaustukai.clear();
+    Kietuoliai.clear();
+    if (s==1){
+        MatuotiLaika("Studentu saraso generavimas", [&](){
+            StudentuSarG(n, m);
+        });
+    }
+        
+    MatuotiLaika("Failo skaitymas", [&]() {
+        SkaitytiIsFailo(fpav, Grupe);
+    });
+        
+    MatuotiLaika("Studentu rusiavimas", [&]() {
+        RusiuotiStudentus(Grupe, rusiavimoPasirinkimas);
+    });
+        
+    MatuotiLaika("Studentu skaidymas i grupes", [&]() {
+        SkaidytiStudentus(Grupe, Nuskriaustukai, Kietuoliai);
+    });
+        
+    MatuotiLaika("Nuskriaustuku irasymas i faila", [&]() {
+        IrasytiIFaila("Rezultatai10000000A.txt", Nuskriaustukai);
+    });
+        
+    MatuotiLaika("Kietuoliu irasymas i faila", [&]() {
+        IrasytiIFaila("Rezultatai10000000B.txt", Kietuoliai);
+    });
+}
+
+template void VykdytiPrograma(vector<Studentas>&, vector<Studentas>&, vector<Studentas>&);
+template void VykdytiPrograma(list<Studentas>&, list<Studentas>&, list<Studentas>&);
