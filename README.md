@@ -34,5 +34,7 @@ Testavimo laiko tikslumui, programa duomenis apdorojo penkis kartus, lentelėje 
 ### Rezultatų išvedimo pavyzdys 
 <img width="524" height="126" alt="Screenshot 2025-10-30 at 19 15 48" src="https://github.com/user-attachments/assets/82c56d05-7f4d-4ebc-a4ea-948e3aa18886" />
 <br>
+
 ### Tyrimo rezultatai
+
 Tiriant konteinerių spartą su skirtingais duomenų kiekiais, rezultatai buvo labai panašūs.
