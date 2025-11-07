@@ -1,5 +1,5 @@
 #include "mylib.h"
-#include <iterator> // reikia std::back_inserter
+#include <iterator>
 
 double MatuotiLaika(const string& operacijosPavadinimas, std::function<void()> operacija) {
     auto start = std::chrono::high_resolution_clock::now();
@@ -142,17 +142,17 @@ void Strategija3(Container& studentai, Container& vargsiukai, Container& kietiak
     Container studentai_kopija2 = studentai;
     
     Container vargsiukai1, kietiakai1;
-    double laikas1 = MatuotiLaika("1 strategijos testas", [&]() {
+    double laikas1 = MatuotiLaika("1 strategija", [&]() {
         Strategija1(studentai_kopija1, vargsiukai1, kietiakai1);
     });
     
     Container vargsiukai2;
-    double laikas2 = MatuotiLaika("2 strategijos testas", [&]() {
+    double laikas2 = MatuotiLaika("2 strategija", [&]() {
         Strategija2(studentai_kopija2, vargsiukai2);
     });
 
-    cout << "1 strategija: " << std::fixed << std::setprecision(6) << laikas1 << " s" << endl;
-    cout << "2 strategija: " << std::fixed << std::setprecision(6) << laikas2 << " s" << endl;
+    //cout << "1 strategija: " << std::fixed << std::setprecision(6) << laikas1 << " s" << endl;
+    //cout << "2 strategija: " << std::fixed << std::setprecision(6) << laikas2 << " s" << endl;
     
     if (laikas1 < laikas2) {
         cout << "1 strategija yra greitesnė" << endl;
@@ -176,7 +176,7 @@ double VykdytiStrategija(Container& studentai, int strategija) {
     switch(strategija) {
         case 1: {
             Container vargsiukai, kietiakai;
-            laikas = MatuotiLaika("Strategija 1 (skaidymas i du konteinerius)", [&]() {
+            laikas = MatuotiLaika("Strategija 1 ", [&]() {
                 Strategija1(studentai, vargsiukai, kietiakai);
             });
             cout << "Vargsiukų: " << vargsiukai.size() << ", Kietiakų: " << kietiakai.size() << endl;
@@ -184,7 +184,7 @@ double VykdytiStrategija(Container& studentai, int strategija) {
         }
         case 2: {
             Container vargsiukai;
-            laikas = MatuotiLaika("Strategija 2 (skaidymas su trynimu)", [&]() {
+            laikas = MatuotiLaika("Strategija 2 ", [&]() {
                 Strategija2(studentai, vargsiukai);
             });
             cout << "Vargsiukų: " << vargsiukai.size() << ", Liko studentų: " << studentai.size() << endl;
@@ -193,10 +193,10 @@ double VykdytiStrategija(Container& studentai, int strategija) {
         case 3: {
             
             Container vargsiukai, kietiakai;
-            laikas = MatuotiLaika("Strategija 3 (strategiju palyginimas ir optimizavimas)", [&]() {
+            laikas = MatuotiLaika("Strategija 3 ", [&]() {
                 Strategija3(studentai, vargsiukai, kietiakai);
             });
-            cout << "Galutinis rezultatas: Vargsiukų: " << vargsiukai.size() << ", Kietiakų: " << kietiakai.size() << endl;
+            //cout << "Galutinis rezultatas: Vargsiukų: " << vargsiukai.size() << ", Kietiakų: " << kietiakai.size() << endl;
             break;
         }
         default:
@@ -264,6 +264,7 @@ void RanksinisIvedimas(vector<Studentas>& Grupe) {
     }
     
     Grupe.push_back(st);
+    cout << "Studento objektas saugomas adresu: " << &Grupe.back()<< endl;
     cout << "Studentas sekmingai pridetas i vektoriu!" << endl;
 }
 
@@ -310,10 +311,11 @@ void RanksinisIvedimas(list<Studentas>& Grupe) {
     }
     
     Grupe.push_back(st);
+    cout << "Studento objektas saugomas adresu: " << &Grupe.back() << endl;
     cout << "Studentas sekmingai pridetas i sarasa!" << endl;
 }
 
-// Eksplicitūs šablonų instancijavimai
+// šablonų instancijavimai
 template void SkaitytiIsFailo<vector<Studentas>>(const string& failoVardas, vector<Studentas>& Grupe);
 template void SkaitytiIsFailo<list<Studentas>>(const string& failoVardas, list<Studentas>& Grupe);
 template void Strategija1<vector<Studentas>>(vector<Studentas>& studentai, vector<Studentas>& vargsiukai, vector<Studentas>& kietiakai);
