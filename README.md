@@ -1,4 +1,52 @@
 # Objektinis-programavimas
+### Naudojimosi instrukcija 
+#### Diegimo instrukcija 
+1. Atsisiųskite visus failus.
+2. Nukopijuokite projekto direktoriją į savo kompiuterį bei sukurkite build direktoriją <br>
+    ```
+   cd /Users/yourname/Desktop/MyProject
+   mkdir build
+   cd build
+   ```
+3. Su Cmake generuojame reikalingus projekto failus <br>
+   ```
+   cd ..
+   ```
+4. Sukompiliuojame kodą ir sukuriame failą <br>
+   ```
+   cmake --build . --config Release
+   ```
+---
+#### Kaip naudotis:
+1. Paleidžiame programą;
+2. Pasirenkame konteinerio tipą;
+3. Pasirenkame skaidymo strategija;
+4. Pasirenkame ar norime kurti atsitiktinius failus:
+4.1.  Jei taip pasirenkame kiek studentų norime;<br>
+4.2.  Sukuriamas failas;<br>
+5. Pasirenkame kaip programa gaus duomenis:<br>
+5.1  Nuskaitymas iš failo; <br>
+   Įvedame failo pavadinimą, iš kurio bus nuskaitomi duomenys;<br>
+5.2  Įvedimas ranka; <br>
+   Įvedame kiek studentų norėsime, ir tada jų duomenis (vardą, pavardę, pažymius, egzamino pažymį); <br>
+6. Programa atlieka testavimą;
+7. Gauname rezultatų failus: RezA - vidurkiai <5; RezB - vidurkiai >=5;
+---
+## Atnaujinimai:
+### v0.1
+Sukūrėme studentų programą, kuri skaičiuoja studentų galutinius vidurkį pagal formulę: <br>
+*Galutinis balas = 0.4 x namų darbų rezultatai + 0.6 x egzamino įvertinimas.* <br>
+Taip pat galime pasirinkti studentų duomenis įvedinėsime ranka, nuskaitysime iš failo, ar sugeneruosime atsitiktinius. Rezultatai išvedami į failus.
+
+### v0.2
+Sukurtas studentų failų generatorius. Be to pridėta funkcija kuri suskaido studentus į dvi grupes, pirma - kurių galutinis pažymys >=5, antra - kurių galutinis pažymys <5. Taip pat pridėtas rikiavimas, pagal vartotojo pasirinktą kriterijų. Funkcijos skirtingos dalys (funkcijos, struktūros ir t.t.) perkeltos į atskirus failus pagal jų paskirtį.
+### v0.3
+Pridėjome galimybe vartotojui pasirinkti su kokiais konteineriais jis nori, kad programa dirbtų. Taip pat pridėta galimybė pasižiurėti objekto saugojimo vietą. Ir atlikome spartos analizę su skirtingais konteinerių tipais ir duomenų kiekiais.
+### v1.0
+Pridėjome galimybę vartotojui pasirinkti studentų skaidymo strategiją (iš trijų galimų).
+
+---
+## Testavimai:
 ### Testavimo sistemos parametrai
 CPU: Apple M3 <br>
 RAM: 16GB <br>
@@ -13,17 +61,6 @@ Programos testavimo metu buvo naudojami tokie failai:<br>
 
 Testavimo failao sudetis - Vardas, Pavardė, 5 Namų darbų pažymiai ir egzamino pažymys.<br>
 Testavimo laiko tikslumui, programa duomenis apdorojo penkis kartus, lentelėje yra pateikti testavimo laikų vidurkiai.
-### v0.1
-Sukūrėme studentų programą, kuri skaičiuoja studentų galutinius vidurkį pagal formulę: <br>
-*Galutinis balas = 0.4 x namų darbų rezultatai + 0.6 x egzamino įvertinimas.* <br>
-Taip pat galime pasirinkti studentų duomenis įvedinėsime ranka, nuskaitysime iš failo, ar sugeneruosime atsitiktinius. Rezultatai išvedami į failus.
-
-### v0.2
-Sukurtas studentų failų generatorius. Be to pridėta funkcija kuri suskaido studentus į dvi grupes, pirma - kurių galutinis pažymys >=5, antra - kurių galutinis pažymys <5. Taip pat pridėtas rikiavimas, pagal vartotojo pasirinktą kriterijų. Funkcijos skirtingos dalys (funkcijos, struktūros ir t.t.) perkeltos į atskirus failus pagal jų paskirtį.
-### v0.3
-Pridėjome galimybe vartotojui pasirinkti su kokiais konteineriais jis nori, kad programa dirbtų. Taip pat pridėta galimybė pasižiurėti objekto saugojimo vietą. Ir atlikome spartos analizę su skirtingais konteinerių tipais ir duomenų kiekiais.
-### v1.0
-Pridėjome galimybę vartotojui pasirinkti studentų skaidymo strategiją (iš trijų galimų).
 ### Tyrimas pagal strtegijas:
 #### Strategijos:
 * 1 strategija - Bendro studentai konteinerio skaidymas (rūšiavimas) į du naujus to paties tipo konteinerius: "vargšiukų" ir "kietiakų". Tokiu būdu tas pats studentas yra dvejuose konteineriuose: bendrame studentai ir viename iš suskaidytų (vargšiukai arba kietiakai);
@@ -54,7 +91,7 @@ Pridėjome galimybę vartotojui pasirinkti studentų skaidymo strategiją (iš t
 | stud100000.txt     | 0.623918 s | 0.658467 s | 
 | stud1000000.txt    | 3.202424 s | 3.167428 s | 
 | stud10000000.txt   | 38.14171 s | 36.28952 s | 
-
+### Konteinerių spartos analizė
 #### Tyrimas su vector tipo konteineriu:
 | Failas             | Failo kūrimas | Duomenų nuskaitymas | Studentų rūšiavimas | Duomenų skaidymas | Išvedimas į failus (<5) | Išvedimas į failus >=5) |
 |:-------------------|:--------------|:--------------------|:--------------------|:------------------|:------------------------|:------------------------|
