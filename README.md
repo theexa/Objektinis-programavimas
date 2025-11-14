@@ -13,6 +13,48 @@ Programos testavimo metu buvo naudojami tokie failai:<br>
 
 Testavimo failao sudetis - Vardas, Pavardė, 5 Namų darbų pažymiai ir egzamino pažymys.<br>
 Testavimo laiko tikslumui, programa duomenis apdorojo penkis kartus, lentelėje yra pateikti testavimo laikų vidurkiai.
+### v0.1
+Sukūrėme studentų programą, kuri skaičiuoja studentų galutinius vidurkį pagal formulę: <br>
+*Galutinis balas = 0.4 x namų darbų rezultatai + 0.6 x egzamino įvertinimas.* <br>
+Taip pat galime pasirinkti studentų duomenis įvedinėsime ranka, nuskaitysime iš failo, ar sugeneruosime atsitiktinius. Rezultatai išvedami į failus.
+
+### v0.2
+Sukurtas studentų failų generatorius. Be to pridėta funkcija kuri suskaido studentus į dvi grupes, pirma - kurių galutinis pažymys >=5, antra - kurių galutinis pažymys <5. Taip pat pridėtas rikiavimas, pagal vartotojo pasirinktą kriterijų. Funkcijos skirtingos dalys (funkcijos, struktūros ir t.t.) perkeltos į atskirus failus pagal jų paskirtį.
+### v0.3
+Pridėjome galimybe vartotojui pasirinkti su kokiais konteineriais jis nori, kad programa dirbtų. Taip pat pridėta galimybė pasižiurėti objekto saugojimo vietą. Ir atlikome spartos analizę su skirtingais konteinerių tipais ir duomenų kiekiais.
+### v1.0
+Pridėjome galimybę vartotojui pasirinkti studentų skaidymo strategiją (iš trijų galimų).
+### Tyrimas pagal strtegijas:
+#### Strategijos:
+* 1 strategija - Bendro studentai konteinerio skaidymas (rūšiavimas) į du naujus to paties tipo konteinerius: "vargšiukų" ir "kietiakų". Tokiu būdu tas pats studentas yra dvejuose konteineriuose: bendrame studentai ir viename iš suskaidytų (vargšiukai arba kietiakai);
+* 2 strategija - Bendro studentų konteinerio skaidymas (rūšiavimas) panaudojant tik vieną naują konteinerį: "vargšiukai". Tokiu būdu, jei studentas yra vargšiukas, jį turime įkelti į naująjį "vargšiukų" konteinerį ir ištrinti iš bendro studentai konteinerio. Po šio žingsnio studentai konteineryje liks vien tik kietiakai;
+* 3 strategija -  Bendro studentų konteinerio skaidymas (rūšiavimas) panaudojant greičiausiai veikianti 1 arba 2 strategiją  įtraukiant į ją "efektyvius" darbo su konteineriais metodus;
+
+#### 1 strategija:
+| Failas             | Vector     | List       | 
+|:-------------------|:-----------|:-----------|
+| stud1000.txt       | 0.003783 s | 0.003418 s | 
+| stud10000.txt      | 0.020030 s | 0.017691 s | 
+| stud100000.txt     | 0.183826 s | 0.172933 s | 
+| stud1000000.txt    | 1.857563 s | 1.741430 s | 
+| stud10000000.txt   | 20.71244 s | 25.20513 s | 
+#### 2 strategija:
+| Failas             | Vector     | List       | 
+|:-------------------|:-----------|:-----------|
+| stud1000.txt       | 0.027172 s | 0.003165 s | 
+| stud10000.txt      | 0.017346 s | 0.017650 s | 
+| stud100000.txt     | 0.166716 s | 0.171667 s | 
+| stud1000000.txt    | 1.670181 s | 1.658064 s | 
+| stud10000000.txt   | 19.51229 s | 19.28886 s | 
+#### 3 strategija:
+| Failas             | Vector     | List       |
+|:-------------------|:-----------|:-----------|
+| stud1000.txt       | 0.009725 s | 0.009525 s |
+| stud10000.txt      | 0.035253 s | 0.037783 s | 
+| stud100000.txt     | 0.623918 s | 0.658467 s | 
+| stud1000000.txt    | 3.202424 s | 3.167428 s | 
+| stud10000000.txt   | 38.14171 s | 36.28952 s | 
+
 #### Tyrimas su vector tipo konteineriu:
 | Failas             | Failo kūrimas | Duomenų nuskaitymas | Studentų rūšiavimas | Duomenų skaidymas | Išvedimas į failus (<5) | Išvedimas į failus >=5) |
 |:-------------------|:--------------|:--------------------|:--------------------|:------------------|:------------------------|:------------------------|
