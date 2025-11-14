@@ -12,9 +12,22 @@
    ```
    cd ..
    ```
-4. Sukompiliuojame kodą ir sukuriame failą <br>
+4. Jei su Xcode:
+    ```
+   cmake -G Xcode .. 
+   ```
+5. Sukompiliuojame kodą ir sukuriame failą <br>
    ```
    cmake --build . --config Release
+   ```
+6. Jei su Xcode, atsidarome ir 'pastatome':
+   ```
+   open StudentSorter.xcodeproj
+   ```
+    ⌘B
+7. Paleidziame programą:
+    ```
+   ./StudentSorter
    ```
 ---
 #### Kaip naudotis:
