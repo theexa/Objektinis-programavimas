@@ -10,4 +10,14 @@ add_executable(StudentSorter
     mylib.cpp
     mylib.h
 )
+file(GLOB DATA_FILES "${CMAKE_SOURCE_DIR}/*.txt")
+
+foreach(file ${DATA_FILES})
+    add_custom_command(
+        TARGET StudentSorter POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${file}
+        ${CMAKE_CURRENT_BINARY_DIR}
+    )
+endforeach()
 
