@@ -104,6 +104,8 @@ Testavimo laiko tikslumui, programa duomenis apdorojo penkis kartus, lentelėje 
 | stud100000.txt     | 0.623918 s | 0.658467 s | 
 | stud1000000.txt    | 3.202424 s | 3.167428 s | 
 | stud10000000.txt   | 38.14171 s | 36.28952 s | 
+### Rezultatai:
+Antra strategija buvo greičiausia tiek su vector tiek su list type konteineriais. Vector konteineris dažnu atveju buvo greitesnis 
 ### Konteinerių spartos analizė
 #### Tyrimas su vector tipo konteineriu:
 | Failas             | Failo kūrimas | Duomenų nuskaitymas | Studentų rūšiavimas | Duomenų skaidymas | Išvedimas į failus (<5) | Išvedimas į failus >=5) |
